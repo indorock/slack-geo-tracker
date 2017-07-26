@@ -10,6 +10,26 @@ $members = [
     ['name' => 'Atilla', 'ip' => '128.101.101.101', 'avatar' => 'https://avatars.slack-edge.com/2015-07-31/8445653365_5ecca53956099cad5354_32.jpg'],
     ['name' => 'Mark', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2016-08-09/67564642033_fdd263db12ab2eb74762_32.jpg'],
     ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
+    ['name' => 'Marijn', 'ip' => '85.214.132.117', 'avatar' => 'https://avatars.slack-edge.com/2015-03-24/4159284123_750a67b29cbc175d02a4_32.jpg'],
     ['name' => 'Frenk', 'ip' => '217.80.125.192', 'avatar' => 'https://avatars.slack-edge.com/2015-01-26/3518740219_594370ed614acd242b49_32.jpg'],
     ['name' => 'Glenn', 'ip' => '134.100.7.231', 'avatar' => 'https://secure.gravatar.com/avatar/f9dee86804e007089cf5f363294a187f.jpg?s=32&d=https%3A%2F%2Fa.slack-edge.com%2F0180%2Fimg%2Favatars%2Fava_0013-32.png'],
     ['name' => 'Jasper', 'ip' => '2.3.4.5', 'avatar' => 'https://avatars.slack-edge.com/2015-09-23/11220340258_9360c291ae00b0755fd0_32.jpg'],
@@ -22,15 +42,19 @@ $members = [
 
 $positions = [];
 
-function setPos(&$lat, &$long){
+function setPos($ip, &$lat, &$long){
     global $positions;
     if (!in_array($lat . '|' . $long, $positions)) {
-        $positions[] = $lat . '|' . $long;
+        $positions[$ip] = $lat . '|' . $long;
         return;
     }
-    $lat = $lat+(rand(-100,100)/1000);
-    $long = $long+(rand(-100,100)/1000);
-    setPos($lat, $long);
+    $rand = rand(10,100)/10000;
+    $posneg = [1,-1];
+    $latshift = $rand*$posneg[array_rand($posneg)];
+    $longshift = $rand*$posneg[array_rand($posneg)];
+    $lat = $lat+$latshift;
+    $long = $long+$longshift;
+    setPos($ip, $lat, $long);
 }
 
 
@@ -73,10 +97,17 @@ function setPos(&$lat, &$long){
 $i = 0;
 foreach($members as $member):
     $i++;
-    $record = $reader->city($member['ip']);
-    $lat = $record->location->latitude;
-    $long = $record->location->longitude;
-    setPos($lat, $long);
+    $ip = $member['ip'];
+    if(!array_key_exists($ip, $positions)){
+        $record = $reader->city($ip);
+        $lat = $record->location->latitude;
+        $long = $record->location->longitude;
+    }else{
+        $coords = explode('|',$positions[$ip]);
+        $lat = $coords[0];
+        $long = $coords[1];
+    }
+    setPos($ip, $lat, $long);
 ?>
 
         markers[markers.length] = new google.maps.Marker({
