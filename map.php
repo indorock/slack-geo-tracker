@@ -48,10 +48,9 @@ function setPos($ip, &$lat, &$long){
         $positions[$ip] = $lat . '|' . $long;
         return;
     }
-    $rand = rand(10,100)/10000;
     $posneg = [1,-1];
-    $latshift = $rand*$posneg[array_rand($posneg)];
-    $longshift = $rand*$posneg[array_rand($posneg)];
+    $latshift = (rand(100,200)/10000)*$posneg[rand(0,1)];
+    $longshift = (rand(100,200)/10000)*$posneg[rand(0,1)];
     $lat = $lat+$latshift;
     $long = $long+$longshift;
     setPos($ip, $lat, $long);
@@ -87,9 +86,10 @@ function setPos($ip, &$lat, &$long){
     function initMap() {
         $('#map').height(window.innerHeight+'px');
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 12,
             minZoom: 4,
-            center: {lat: 45, lng: 0},
+            //center: {lat: 45, lng: 0},
+            center: {lat: 52.525, lng: 13.3192},
             height: window.innerHeight+'px'
         });
         var markers = [];
