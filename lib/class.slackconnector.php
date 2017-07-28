@@ -34,17 +34,23 @@ class SlackConnector extends OAuth2Connector{
         return $ret['members'];
     }
 
-    public function getTeamLogins(){
-        $curl = new Curl();
-        $ret = $curl->call('http://apps.offcentric.com/slack-geo-tracker/test.json');
-        $ret = json_decode($ret, true);
+    public function getTeamLogins($token = null){
+//        if(!$token)
+//            $token = $this->access_token;
 
-        //$ret = $this->client->fetch('https://slack.com/api/team.accessLogs?token='.$this->access_token);
-        if(!$ret || @$ret['error']) {
+        if($token){
+            $ret = $this->client->fetch('https://slack.com/api/team.accessLogs?token=' . $token);
+        }else{
+            $curl = new Curl();
+            $ret = $curl->call('http://apps.offcentric.com/slack-geo-tracker/test.json');
+            $ret = json_decode($ret, true);
+        }
+
+        if(!$ret || @$ret['result']['error']) {
             if($ret === null)
                 var_dump(json_last_error_msg());
             self::logerror('cannot fetch slack team logins!', false);
-            return false;
+            return ['error'=>true];
         }
         return $ret['logins'];
     }

@@ -12,13 +12,16 @@ class Markers{
 
     static protected $positions = [];
 
-    static function get_markers(){
+    static function get_markers($token = null){
 
         $sc = new SlackConnector();
         $reader = new Reader('/usr/local/share/geoip/geolite2-city.mmdb');
 
         $members = [];
-        $logins = $sc->getTeamLogins();
+        $logins = $sc->getTeamLogins($token);
+        if($logins == false || @$logins['error'])
+            return $logins;
+
         foreach($logins as $login){
             $user = $sc->getUserInfo($login['user_id']);
             $members[] = ['name' => $user['real_name'], 'ip' => $login['ip'], 'avatar' => $user['profile']['image_32']];
@@ -64,18 +67,26 @@ class Markers{
     }
 }
 
-
+$token = null;
+if(isset($_POST['token']))
+    $token = $_POST['token'];
 
 $mem = new Memcached();
 $mem->addServer("127.0.0.1", 11211);
-$out = $mem->get("markers");
+$data = $mem->get("markers");
 
-if(!$out){
-    $out = Markers::get_markers();
-    $out = json_encode($out);
-    $ret = $mem->set("markers",$out,time()+3600);
+if(!$data || $token){
+    $ret = Markers::get_markers($token);
+    if($ret !== false){
+        $data = json_encode($ret);
+        if(!@$ret['error']){
+            $mem->set("markers", $data, time() + 3600);
+            if($token)
+                header('location:map.html');
+        }
+    }
 }
-echo $out;
+echo $data;
 
 
 
