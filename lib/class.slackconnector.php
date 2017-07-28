@@ -64,6 +64,4 @@ class SlackConnector extends OAuth2Connector{
         }
         return $ret['result']['user'];
     }
-
-
 }

@@ -49,8 +49,12 @@
             }
             $('#map').height(window.innerHeight+'px');
             var map = new google.maps.Map(document.getElementById('map'), {
+                backgroundColor:'#333333',
                 zoom: 4,
                 minZoom: 4,
+                mapTypeControl:false,
+                streetViewControl:false,
+                styles:style,
                 center: {lat: 45, lng: 0},
 //                center: {lat: 52.525, lng: 13.3192},
                 height: window.innerHeight+'px'
