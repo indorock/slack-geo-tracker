@@ -38,23 +38,54 @@ class SlackConnector extends OAuth2Connector{
 //        if(!$token)
 //            $token = $this->access_token;
 
+        $mem = new Memcached();
+        $mem->addServer("127.0.0.1", 11211);
+
         if($token){
-            $ret = $this->client->fetch('https://slack.com/api/team.accessLogs?token=' . $token);
+            $out = $mem->get("logins");
+            if(!$out){
+                $res = $this->client->fetch('https://slack.com/api/team.accessLogs?count=500&token=' . $token);
+
+                if($res !== false){
+                    $data = json_decode($res);
+                    $out = $data['logins'];
+                    if($data && !@$data['error']){
+                        $mem->set("logins", $out, time() + 3600);
+                    }else{
+                        if($data === null)
+                            var_dump(json_last_error_msg());
+                        self::logerror('cannot fetch slack team logins!', false);
+                        return ['error'=>true];
+                    }
+                }
+            }
         }else{
             $curl = new Curl();
-            $ret = $curl->call('http://apps.offcentric.com/slack-geo-tracker/test.json');
-            $ret = json_decode($ret, true);
+            $res = $curl->call('http://apps.offcentric.com/slack-geo-tracker/test.json');
+            $data = json_decode($res, true);
+            $out = $data['logins'];
         }
 
-        if(!$ret || @$ret['result']['error']) {
-            if($ret === null)
-                var_dump(json_last_error_msg());
-            self::logerror('cannot fetch slack team logins!', false);
-            return ['error'=>true];
-        }
-        return $ret['logins'];
+        return $out;
     }
 
+    public function getLastUserLogin($user_id){
+        $logins = $this->getTeamLogins();
+        foreach($logins as $login){
+            if($login['user_id'] == $user_id)
+                return $login;
+            }
+    }
+
+    public function getAllUsersInfo(){
+        $users = $this->getTeamUsers();
+        $members = [];
+        foreach($users as $user)
+            $members[] = ['name' => $user['real_name'], 'avatar' => $user['profile']['image_32']];
+
+        return $members;
+
+    }
     public function getUserInfo($user_id){
         self::log('get username for '.$user_id);
         $ret = $this->client->fetch('https://slack.com/api/users.info?token='.$this->access_token.'&user='.$user_id);
